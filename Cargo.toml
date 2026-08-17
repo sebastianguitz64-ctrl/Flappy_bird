@@ -1,0 +1,18 @@
+[package]
+name = "flappy_bird"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+# "audio" feature is required to pull in macroquad::audio (load_sound / play_sound).
+# Macroquad 0.4+ ships with zero default features, so this must be explicit.
+macroquad = { version = "0.4.16", features = ["audio"] }
+
+[profile.release]
+opt-level = 3
+lto = true
+
+# Speeds up asset loading / physics-heavy debug builds by compiling
+# dependencies (but not our own crate) at full optimization.
+[profile.dev.package."*"]
+opt-level = 3
